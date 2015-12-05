@@ -46,6 +46,9 @@ public void create (){
 	res = new Content();
 	res.loadTexture("player.png", "player");
 	res.loadTexture("bunny.png", "bunny");
+	res.loadTexture("bomba.png", "bomba");
+	res.loadTexture("bomba2.png", "bomba2");
+	res.loadTexture("red.jpg", "red");
 	sb = new SpriteBatch();
 	cam = new OrthographicCamera();
 	cam.setToOrtho(false,480,480);

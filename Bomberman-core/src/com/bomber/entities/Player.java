@@ -30,46 +30,22 @@ public class Player extends B2DSprite {
 
 	public void update(float dt) {
 		animation.update(dt);
-		//System.out.println(this.getPosition().x+","+this.getPosition().y);
+	System.out.println((int)((this.getPosition().x-16)/32)+","+(int)((this.getPosition().y-16)/32));
 		//System.out.println(estado+"    antes");
 		atualizaEstado();
 		//System.out.println(estado+"   depois");
 	}
 
-//	public void moveUpRight() {
-//
-//		this.getBody().setLinearVelocity(1500f, 1500f);
-//
-//	}
-//
-//	public void moveUpLeft() {
-//
-//		this.getBody().setLinearVelocity(-1500f, 1500f);
-//
-//	}
-//
-//	public void moveDownLeft() {
-//
-//		this.getBody().setLinearVelocity(-1500f, -1500f);
-//
-//	}
-//
-//	public void moveDownRight() {
-//
-//		this.getBody().setLinearVelocity(1500f, -1500f);
-//
-//	}
-
 	public void moveRight() {
-		x1 = this.getPosition().x+32;
-		y1 = this.getPosition().y;
+		x1 = (int)this.getPosition().x+32;
+		y1 = (int)this.getPosition().y;
 		//this.getBody().setLinearVelocity(1500f, 0);
 		this.estado=GameKeys.RIGHT;
 	}
 
 	public void moveLeft() {
-		x1 = this.getPosition().x-32;
-		y1 = this.getPosition().y;
+		x1 = (int)this.getPosition().x-32;
+		y1 = (int)this.getPosition().y;
 		this.estado=GameKeys.LEFT;
 		//this.getBody().setLinearVelocity(-1500f, 0);
 
@@ -77,8 +53,8 @@ public class Player extends B2DSprite {
 
 	public void moveUp() {
 		
-		x1 = this.getPosition().x;
-		y1 = this.getPosition().y+32;
+		x1 = (int)this.getPosition().x;
+		y1 = (int)this.getPosition().y+32;
 		
 			this.estado=GameKeys.UP;
 		
@@ -87,8 +63,8 @@ public class Player extends B2DSprite {
 	}
 
 	public void moveDown() {
-		x1 = this.getPosition().x;
-		y1 = this.getPosition().y-32;
+		x1 = (int)this.getPosition().x;
+		y1 = (int)this.getPosition().y-32;
 		
 			this.estado=GameKeys.DOWN;
 		//this.getBody().setLinearVelocity(0, -1500f);
@@ -106,8 +82,8 @@ public class Player extends B2DSprite {
 		if(estado==0){
 			return;
 		}else if(estado==GameKeys.UP){
-			if(this.getPosition().y<y1){
-				//System.out.println(this.getPosition().y);
+			if((int)this.getPosition().y<y1){
+				//System.out.println((int)this.getPosition().y);
 				this.getBody().setLinearVelocity(0, 15000f);
 			}else{
 				this.estado=0;
@@ -115,8 +91,8 @@ public class Player extends B2DSprite {
 			
 			
 		}else if(estado==GameKeys.DOWN){
-			if(this.getPosition().y>y1){
-				//System.out.println(this.getPosition().y);
+			if((int)this.getPosition().y>y1){
+				//System.out.println((int)this.getPosition().y);
 				this.getBody().setLinearVelocity(0, -15000f);
 			}else{
 				this.estado=0;
@@ -124,8 +100,8 @@ public class Player extends B2DSprite {
 			
 			
 		}else if(estado==GameKeys.LEFT){
-			if(this.getPosition().x>x1){
-				//System.out.println(this.getPosition().y);
+			if((int)this.getPosition().x>x1){
+				//System.out.println((int)this.getPosition().y);
 				this.getBody().setLinearVelocity(-15000f, 0);
 			}else{
 				this.estado=0;
@@ -133,8 +109,8 @@ public class Player extends B2DSprite {
 			
 			
 		}else if(estado==GameKeys.RIGHT){
-			if(this.getPosition().x<x1){
-				//System.out.println(this.getPosition().y);
+			if((int)this.getPosition().x<x1){
+				//System.out.println((int)this.getPosition().y);
 				this.getBody().setLinearVelocity(15000f, 0);
 			}else{
 				this.estado=0;
