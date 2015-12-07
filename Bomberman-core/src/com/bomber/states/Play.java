@@ -5,9 +5,13 @@ import static handlers.B2DVars.PPM;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
@@ -28,6 +32,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.bomber.Game;
 import com.bomber.entities.Player;
 import com.bomber.entities.Bomb;
+
+import handlers.B2DVars;
 import handlers.GameKeys;
 import handlers.GameStateManager;
 import handlers.MyContactListener;
@@ -49,6 +55,10 @@ public class Play extends GameState{
 	private MyContactListener cl ;
 	private ArrayList<Bomb> bombs;
 	
+	private BitmapFont mBitmapFont;
+	 
+	private boolean flag=true;
+	
 	
 	public Play(GameStateManager gsm){
 		
@@ -63,6 +73,7 @@ public class Play extends GameState{
 		
 		//cria player
 		createPlayer();
+		Fixture f;
 		
 		//cria tile
 		createTiles();
@@ -80,12 +91,27 @@ public class Play extends GameState{
 		b2dCam.setToOrtho(false , 480/PPM, 480/PPM);
 		
 		/////////////////////////////////////////////////////////////////
-		
-	
+		 FileHandle fontFile = Gdx.files.internal("arial.ttf");
+	        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
+
+	        mBitmapFont = generator.generateFont(20);
+	        generator.dispose();
+
+	        mBitmapFont.setColor(0f, 0f, 0f, 1); 
 	}
 
 	@Override
 	public void handleInput() {
+		
+		if(cl.isTheGameOver()){
+			
+			if(GameKeys.isPressed(GameKeys.ENTER)){
+			
+				this.reset();
+			}
+			return;
+		}
+		
 		
 		if(GameKeys.isDown(GameKeys.RIGHT)&&player.estaParado()&&!cl.isBlockedRight()){
 			
@@ -101,14 +127,23 @@ public class Play extends GameState{
 			player.moveDown();
 		}
 		else if(GameKeys.isPressed(GameKeys.ENTER)&&player.estaParado()){
-			System.out.println("setbomb");
+			//System.out.println("setbomb");
 			this.setBomb();
+		} else if(player.estaParado()) {
+			player.animacaoParado();
+			
 		}
 		
 	}
 
 	@Override
 	public void update(float dt) {
+		if(cl.isTheGameOver()&&flag==true){
+			player.animacaoMorrendo();
+			flag=false;
+		}
+		
+		
 		handleInput();
 		
 		world.step(dt, 6, 2);
@@ -141,9 +176,7 @@ public class Play extends GameState{
 		tmr.setView(cam);
 		tmr.render();
 		
-		//draw player 
-		sb.setProjectionMatrix(cam.combined);
-		player.render(sb);
+		
 		
 		//renderiza todas as bombas
 		for(Bomb b:bombs){
@@ -152,9 +185,21 @@ public class Play extends GameState{
 		// draw b2d world
 		//b2dr.render(world, b2dCam.combined);
 		
-		
-		
-		
+		//draw player 
+				
+		sb.setProjectionMatrix(cam.combined);
+		player.render(sb);
+					
+				
+			if(cl.isTheGameOver()){
+				player.render(sb);	
+				 sb.begin();
+				Texture tex = Game.res.getTexture("gameover");
+					 sb.draw(tex, 120,150,240, 180);
+				 mBitmapFont.draw(sb, "Press ENTER to restart", 120, 100);
+				 sb.end();
+			}
+				
 		
 	}
 
@@ -165,21 +210,22 @@ public class Play extends GameState{
 	}
 	
 	private void setBomb(){
-		BodyDef bdef= new BodyDef();
+		BodyDef bdef = new BodyDef();
 		PolygonShape shape = new PolygonShape();
 		FixtureDef fdef = new FixtureDef();
-	
 		
 		bdef.position.set((int)player.getPosition().x,(int)player.getPosition().y);
 		bdef.type = BodyType.StaticBody;
 		Body body = world.createBody(bdef);
 		shape.setAsBox(15/PPM, 15/PPM);
-		fdef.shape =shape;
-		fdef.isSensor=true;
-		body.createFixture(fdef);
-		Bomb b = new Bomb(body);
+		fdef.shape = shape;
+		fdef.isSensor = true;
+		body.setSleepingAllowed(false);
+		body.createFixture(fdef).setUserData("bombaInativa");
+		Bomb b = new Bomb(body,cl);
 		bombs.add(b);
 		
+				
 	}
 	
 	private void createPlayer(){
@@ -195,7 +241,8 @@ public class Play extends GameState{
 		Body body = world.createBody(bdef);
 		shape.setAsBox(15/PPM, 15/PPM);
 		fdef.shape =shape;
-		body.createFixture(fdef);
+		body.setSleepingAllowed(false);
+		body.createFixture(fdef).setUserData("player");;
 		body.setLinearDamping(7000);
 		
 		//criando sensor up
@@ -269,7 +316,34 @@ public class Play extends GameState{
 				}
 				
 	}
-	
+	public void reset(){
+		//destruir player bombas e bixos
+		world.destroyBody(this.player.getBody());
+
+		//tirar as bombas buga a solidificação delas (descobrir o porque)
+		
+//		for(int i =0;i<bombs.size();i++){
+//			Bomb b = bombs.get(i);
+//			
+//			
+//				
+//				Body body =b.getBody();
+//				bombs.remove(i);
+//				i--;
+//				world.destroyBody(body);
+//		}
+		
+		
+		
+		//tirar o game over do cl
+		cl.resetGameOver();
+		
+		
+		//recriar tudo
+		createPlayer();
+		
+		
+	}
 	
 	
 	

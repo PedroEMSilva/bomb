@@ -19,7 +19,7 @@ public class Game implements ApplicationListener {
 	public static final String TITLE = "Bomber-Cueio";
 	public static final int WIDHT = 350;
 	public static final int  HEIGHT = 350;
-	public static final int  SCALE = 2;
+	public static final int  SCALE =2;
 	
 	public static final float STEP = 1/60f ;
 	private float accum;
@@ -44,11 +44,28 @@ public void create (){
 	Gdx.input.setInputProcessor(new GameInputProcessor());
 	
 	res = new Content();
-	res.loadTexture("player.png", "player");
-	res.loadTexture("bunny.png", "bunny");
+	res.loadTexture("bomberCima.png", "bomberUp");
+	res.loadTexture("bomberDireita.png", "bomberRight");
+	res.loadTexture("bomberEsquerda.png", "bomberLeft");
+	res.loadTexture("bomberBaixo.png", "bomberDown");
+	res.loadTexture("bomberdead.png", "bomberdead");
 	res.loadTexture("bomba.png", "bomba");
-	res.loadTexture("bomba2.png", "bomba2");
-	res.loadTexture("red.jpg", "red");
+	res.loadTexture("bombaExplodindo.png", "bombaExp");
+	res.loadTexture("paradoCima.png", "stopUp");
+	res.loadTexture("paradoBaixo.png", "stopDown");
+	res.loadTexture("paradoDireita.png", "stopRight");
+	res.loadTexture("paradoEsquerda.png", "stopLeft");
+	res.loadTexture("xpBaixo.png", "xpDown");
+	res.loadTexture("xpCima.png", "xpUp");
+	res.loadTexture("xpEsquerda.png", "xpLeft");
+	res.loadTexture("xpDireita.png", "xpRight");
+	res.loadTexture("xpCentro.png", "xpCenter");
+	res.loadTexture("xpPontaCima.png", "xpTipUp");
+	res.loadTexture("xpPontaBaixo.png", "xpTipDown");
+	res.loadTexture("xpPontaDireita.png", "xpTipRight");
+	res.loadTexture("xpPontaEsquerda.png", "xpTipLeft");
+	res.loadTexture("red.png", "red");
+	res.loadTexture("gameover.png", "gameover");
 	sb = new SpriteBatch();
 	cam = new OrthographicCamera();
 	cam.setToOrtho(false,480,480);
