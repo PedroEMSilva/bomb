@@ -4,6 +4,7 @@
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="src" path="/Bomberman-core"/>
 	<classpathentry kind="src" path="assets"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/Tudo"/>
 	<classpathentry kind="lib" path="C:/Users/Pedro/Downloads/libgdx-nightly-latest/gdx.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Pedro/Downloads/libgdx-nightly-latest/gdx-backend-android.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Pedro/Downloads/libgdx-nightly-latest/gdx-backend-gwt.jar"/>

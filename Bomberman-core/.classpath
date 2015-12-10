@@ -3,6 +3,10 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="assets"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/Tudo"/>
+	<classpathentry kind="lib" path="C:/Users/Pedro/Downloads/libgdx-nightly-latest/extensions/gdx-box2d/gdx-box2d.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Pedro/Downloads/libgdx-nightly-latest/extensions/gdx-box2d/gdx-box2d-gwt.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Pedro/Downloads/libgdx-nightly-latest/extensions/gdx-box2d/gdx-box2d-natives.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Pedro/Downloads/libgdx-nightly-latest/gdx.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Pedro/Downloads/libgdx-nightly-latest/gdx-backend-android.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Pedro/Downloads/libgdx-nightly-latest/gdx-backend-gwt.jar"/>
@@ -14,9 +18,6 @@
 	<classpathentry kind="lib" path="C:/Users/Pedro/Downloads/libgdx-nightly-latest/gdx-backend-robovm.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Pedro/Downloads/libgdx-nightly-latest/gdx-natives.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Pedro/Downloads/libgdx-nightly-latest/gdx-setup.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Pedro/Downloads/libgdx-nightly-latest/extensions/gdx-box2d/gdx-box2d.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Pedro/Downloads/libgdx-nightly-latest/extensions/gdx-box2d/gdx-box2d-gwt.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Pedro/Downloads/libgdx-nightly-latest/extensions/gdx-box2d/gdx-box2d-natives.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Pedro/Downloads/libgdx-nightly-latest/extensions/gdx-freetype/gdx-freetype.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Pedro/Downloads/libgdx-nightly-latest/extensions/gdx-freetype/gdx-freetype-natives.jar"/>
 	<classpathentry kind="output" path="bin"/>
